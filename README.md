@@ -2,15 +2,23 @@
 
 An interactive escape-room game where you compete against AI algorithms across a series of puzzle rooms, built with React, TypeScript, and shadcn/ui.
 
+**[Live demo](https://a-i-mystery-rooms.vercel.app)**
+
 ## About
 
-Each room challenges you to solve a puzzle and then compares your approach against an AI-driven solution:
+Three rooms, each built around a real, classic AI search algorithm — you solve
+the puzzle yourself, then see it compared against (or played out by) the
+algorithm behind it:
 
-- **Logic Puzzles** — work through a set of logic questions to unlock the next stage.
-- **Pathfinding** — find your own route through a grid and see how it stacks up against an AI pathfinding algorithm.
-- **Blocks World** — rearrange a stack of blocks to match a goal state, with an AI solver showing its own solution.
+| Room | Puzzles | AI technique |
+|---|---|---|
+| **Logic Core** | Neural Network Sudoku, BFS Pathfinder, Logic Gate Challenge | Backtracking / constraint satisfaction, breadth-first search |
+| **Strategic Grid** | Connect Four vs AI | Minimax with alpha-beta pruning |
+| **Blocks World** | Cognitive Blocks Battle | A* search |
 
-Progress and points carry across rooms, with a completion screen and medal once all rooms are cleared.
+Clearing all the puzzles in a room unlocks the next one; clear all three
+rooms and you escape. Full write-up of how each algorithm works is in
+[`docs/ALGORITHMS.md`](./docs/ALGORITHMS.md).
 
 ## Tech Stack
 
@@ -23,7 +31,7 @@ Progress and points carry across rooms, with a completion screen and medal once 
 
 ## Getting Started
 
-\`\`\`sh
+```sh
 # Install dependencies
 npm install
 
@@ -32,23 +40,41 @@ npm run dev
 
 # Build for production
 npm run build
-\`\`\`
+```
+
+The dev server runs at `http://localhost:8080` by default (see `vite.config.ts`).
 
 ## Project Structure
 
-\`\`\`
+```
 src/
 ├── components/
 │   ├── layout/     # Header, footer
 │   ├── puzzles/    # Puzzle logic and UI for each room
 │   ├── rooms/      # Room hub and room shell
 │   └── ui/         # shadcn/ui components
-├── contexts/       # App-wide state
+├── contexts/       # App-wide state (room/puzzle progression)
 ├── hooks/          # Custom hooks
 ├── pages/          # Route-level pages
-└── utils/          # Puzzle/game logic and helpers
-\`\`\`
+└── utils/          # Pure algorithm implementations (BFS, minimax, A*, backtracking)
+```
+
+For a deeper look at how state flows through the app and how a puzzle gets
+wired in, see [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md).
+
+## Documentation
+
+- [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — state management, folder layout, how to add a new puzzle
+- [`docs/ALGORITHMS.md`](./docs/ALGORITHMS.md) — what each room's AI actually does, algorithm by algorithm
 
 ## Deployment
 
-This project is set up to build as a static site (\`npm run build\`) and can be deployed to any static host, e.g. [Vercel](https://vercel.com/).
+This project builds as a static site (`npm run build` → `dist/`) and can be
+deployed to any static host — it's currently deployed on
+[Vercel](https://vercel.com/) with zero extra configuration (Vercel
+auto-detects the Vite preset).
+
+## License
+
+No license file is currently included — all rights reserved by default. Add
+a `LICENSE` file (e.g. MIT) if you want to allow reuse.
